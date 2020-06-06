@@ -3,3 +3,7 @@ node_modules
 database.sqlite
 
 ngrok.exe
+
+/uploads
+
+.env

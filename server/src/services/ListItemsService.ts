@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 
+import { APP_URL } from '../common/constants'
+
 class ListItemsService {
   async run(req: Request, res: Response) {
     const items = await knex('items').select('*');
@@ -9,7 +11,7 @@ class ListItemsService {
       return {
         id: item.id,
         title: item.title,
-        image_url: `http://localhost:3333/uploads/${item.image}`,
+        image_url: `${APP_URL}/uploads/${item.image}`,
       };
     });
 

@@ -17,8 +17,7 @@ class CreatePointsService {
     const trx = await knex.transaction();
 
     const point = {
-      image:
-        'https://static.brusheezy.com/system/resources/thumbnails/000/021/683/original/green-eco-icon-brushes.jpg',
+      image: req.file.filename,
       name,
       email,
       whatsapp,
@@ -32,9 +31,12 @@ class CreatePointsService {
 
     const point_id = insertedIds[0];
 
-    const pointItems = items.map((item_id: number) => {
-      return { item_id, point_id };
-    });
+    const pointItems = items
+      .split(',')
+      .map((item: string) => Number(item.trim()))
+      .map((item_id: number) => {
+        return { item_id, point_id };
+      });
 
     await trx('point_items').insert(pointItems);
 

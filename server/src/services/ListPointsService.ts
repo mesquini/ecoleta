@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 
+import { APP_URL } from '../common/constants';
+
 class ShowPointService {
   async run(req: Request, res: Response) {
     const { city, uf, items } = req.query;
@@ -19,7 +21,14 @@ class ShowPointService {
 
     if (!points) return res.status(400).json({ message: 'Point not found.' });
 
-    return res.json(points);
+    const serializedPoints = points.map(point => {
+      return {
+        ...points,
+        image_url: `${APP_URL}/uploads/${point.image}`,
+      };
+    });
+
+    return res.json(serializedPoints);
   }
 }
 

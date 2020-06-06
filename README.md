@@ -1,10 +1,8 @@
-<img src=".github/wallpaper.jpg" alt="fundo"/>
+<h1 align='center'><img src=".github/logo.svg" alt="fundo"/></h1>
 
-<h1 align='center'>Ecoleta</h1>
-
-<h3 align="center">
+<!-- <h3 align="center">
   :construction: In construction :construction:
-</h3>
+</h3> -->
 
 <p align="center">
   <a href="#tokyo_tower-structure">Structure</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -22,9 +20,34 @@
 
 This project was developed to studying JSON and React with the following technologies:
 
-- [Yarn][yarn]
-- [Axios](https://github.com/axios/axios)
-- [Nodemon](https://github.com/remy/nodemon)
+- Backend
+
+  - [Yarn][yarn]
+  - [Celebrate](https://github.com/arb/celebrate)
+  - [Cors](https://github.com/expressjs/cors)
+  - [Dotenv](https://github.com/motdotla/dotenv)
+  - [Express](https://www.npmjs.com/package/express)
+  - [Helmet](https://www.npmjs.com/package/helmet)
+  - [Knex](https://www.npmjs.com/package/knex)
+  - [Morgan](https://github.com/expressjs/morgan)
+  - [Multer](https://github.com/expressjs/multer)
+  - [Sqlite3](https://www.npmjs.com/package/sqlite3)
+  - [Eslint](https://www.npmjs.com/package/eslint)
+  - [Prettier](https://www.npmjs.com/package/prettier)
+
+- Frontend
+
+  - [Leaflet](https://leafletjs.com/download.html)
+  - [Axios](https://www.npmjs.com/package/axios)
+  - [Yup](https://github.com/jquense/yup)
+  - [React Icons](https://www.npmjs.com/package/react-icons)
+  - [React Dropzone](https://github.com/react-dropzone/react-dropzone)
+  
+- Mobile (Expo)
+  - [React Native Maps](https://www.npmjs.com/package/react-native-maps)
+  - [Expo location](https://docs.expo.io/versions/latest/sdk/location)
+  - [Expo font](https://docs.expo.io/versions/latest/sdk/font)
+  - [Expo mail composer](https://docs.expo.io/versions/latest/sdk/mail-composer)
 
 
 ## :information_source: How To Use
@@ -37,10 +60,13 @@ $ git clone https://github.com/mesquini/ecoleta
 
 > cd backend
 > yarn install
-> yarn dev
-> yarn queue
+> yarn dev:server
 
 > cd frontend
+> yarn install
+> yarn start
+
+> cd mobile
 > yarn install
 > yarn start
 ```
