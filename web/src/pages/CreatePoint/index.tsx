@@ -12,7 +12,9 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet'
 
 import logo from '../../assets/logo.svg'
-import axios from 'axios';
+import InputRegion from '../../components/InputRegion'
+
+import { toast } from 'react-toastify'
 
 interface Item {
   title: string;
@@ -20,23 +22,16 @@ interface Item {
   id: number;
 }
 
-interface IBGE_UF_Response {
-  sigla: string;
-  nome: string;
-}
-
-interface IBGE_City_Response {
-  id: number;
-  nome: string;
+interface IRegion {
+  city: string;
+  uf: string
 }
 
 const CreatePoint: React.FC = () => {
   const [items, setItems] = useState<Item[]>([])
-  const [ufs, setUfs] = useState<string[]>([])
-  const [cities, setCities] = useState<string[]>([])
 
-  const [selectedUf, setSelectedUf] = useState('0');
-  const [selectedCity, setSelectedCity] = useState('0');
+  const [objRegion, setObjRegion] = useState<IRegion>({city: '0', uf: '0' });
+
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0,0]);
@@ -67,43 +62,6 @@ const CreatePoint: React.FC = () => {
 
   },[]);
 
-  useEffect(() => {
-    axios.get<IBGE_UF_Response[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
-      .then(resp => {
-      const ufInitials = resp.data.map(uf => uf.sigla);
-
-      setUfs(ufInitials);
-    })
-
-  },[]);
-
-  useEffect(() => {
-    if(selectedUf === '0') return
-
-    axios
-      .get<IBGE_City_Response[]>(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`
-      )
-      .then((resp) => {
-        const cityName = resp.data.map((city) => city.nome);
-
-        setCities(cityName);
-      });
-
-  },[selectedUf]);
-
-  function handleSeletedUf(event: ChangeEvent<HTMLSelectElement>){
-    const uf = event.target.value;
-
-    setSelectedUf(uf);
-  }
-
-  function handleSeletedCity(event: ChangeEvent<HTMLSelectElement>){
-    const city = event.target.value;
-
-    setSelectedCity(city);
-  }
-
   function handleMapClick(event: LeafletMouseEvent){
     setSelectedPosition([
       event.latlng.lat,
@@ -133,28 +91,36 @@ const CreatePoint: React.FC = () => {
   async function handleSubmit(event: FormEvent){
     event.preventDefault();
 
+    if(selectedPosition[0] === 0 || selectedPosition[1] === 0)
+      return toast.warn('Seleciona uma posição no mapa!')
+
     const {name, email, whatsapp} = formData
-    const uf = selectedUf;
-    const city = selectedCity
     const [latitude, longitude] = selectedPosition
     const items = selectedItems
+
 
     const data = new FormData();
 
     data.append('name', name)
     data.append('email', email)
     data.append('whatsapp', whatsapp)
-    data.append('uf', uf)
-    data.append('city', city)
+    data.append('uf', objRegion.uf)
+    data.append('city', objRegion.city)
     data.append('latitude', String(latitude))
     data.append('longitude', String(longitude))
     data.append('items', items.join(','))
 
     if(selectedFile) data.append('image', selectedFile);
 
-    await api.post('/points', data);
+    try {
+      await api.post('/points', data);
 
-    history.push('/')
+      toast.success('Ponto cadastrado com sucesso!')
+
+      history.push('/')
+    } catch (error) {
+      toast.error('Erro ao cadastrar, tente novamente!')
+    }
   }
 
   return (
@@ -228,7 +194,9 @@ const CreatePoint: React.FC = () => {
           <Marker position={selectedPosition} />
         </Map>
 
-        <div className="field-group">
+        <InputRegion onObjRegion={setObjRegion} />
+
+        {/* <div className="field-group">
           <div className="field">
             <label htmlFor="uf">Estado (UF)</label>
             <select
@@ -263,7 +231,7 @@ const CreatePoint: React.FC = () => {
               ))}
             </select>
           </div>
-        </div>
+        </div> */}
 
         <fieldset>
           <legend>
@@ -276,9 +244,9 @@ const CreatePoint: React.FC = () => {
           {items.map((item) => (
             <li
               key={item.id}
-              onClick={ () => handleSelectItem(item.id)}
-              className={selectedItems.includes(item.id) ? 'selected' : ''}
-              >
+              onClick={() => handleSelectItem(item.id)}
+              className={selectedItems.includes(item.id) ? "selected" : ""}
+            >
               <img src={item.image_url} alt={item.title} />
               <span>{item.title}</span>
             </li>

@@ -14,7 +14,7 @@ const upload = multer(multerConfig);
 
 routes.get('/items', ListItemsService.run);
 
-routes.post('/points', upload.single('file'), CreatePointValidation, CreatePointsService.run);
+routes.post('/points', upload.single('image'), CreatePointValidation, CreatePointsService.run);
 
 routes.get('/point/:id', ShowPointService.run);
 
