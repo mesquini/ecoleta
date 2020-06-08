@@ -23,7 +23,7 @@ class ShowPointService {
 
     const serializedPoints = points.map(point => {
       return {
-        ...points,
+        ...point,
         image_url: `${APP_URL}/uploads/${point.image}`,
       };
     });

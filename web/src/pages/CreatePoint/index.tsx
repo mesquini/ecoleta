@@ -12,6 +12,7 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet'
 
 import logo from '../../assets/logo.svg'
+
 import InputRegion from '../../components/InputRegion'
 
 import { toast } from 'react-toastify'

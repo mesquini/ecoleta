@@ -90,10 +90,10 @@ const InputRegion: React.FC<IPropos> = ({ onObjRegion }) => {
           </select>
         </Field>
         <Field className="field">
-          <label htmlFor="uf">Cidade</label>
+          <label htmlFor="city">Cidade</label>
           <select
-            name="uf"
-            id="uf"
+            name="city"
+            id="city"
             value={selectedCity}
             onChange={handleSeletedCity}
             required

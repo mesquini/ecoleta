@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const GroupField = styled.div`
   flex: 1;
   display: flex;
+  margin-top:20px;
 
   .field + .field {
     margin-left: 24px;
