@@ -141,12 +141,12 @@ const ListPoint = () => {
               <Point key={point.id}>
                 <img src={point.image_url} alt={point.name} width={500} />
                 <h2>{point.name}</h2>
-                <a href={`mailto:${point.email}`} target="_blank">
+                <a href={`mailto:${point.email}`} target="_blank" rel="noopener noreferrer">
                   {point.email}
                 </a>
                 <a
                   href={`https://wa.me/55${point.whatsapp}?text=Olá,%20Tudo%20bem?`}
-                  target="_blank"
+                  target="_blank" rel="noopener noreferrer"
                   style={{marginTop: 10}}
                 >
                   {point.whatsapp}

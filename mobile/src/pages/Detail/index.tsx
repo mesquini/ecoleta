@@ -45,9 +45,7 @@ const Detail = () => {
   const routeParams = route.params as IParams;
 
   useEffect(() => {
-    api.get(`/point/${routeParams.point_id}`).then(resp => {
-      console.log(resp);
-      
+    api.get(`/point/${routeParams.point_id}`).then(resp => {      
       setData(resp.data);
     })
   }, [])
@@ -57,7 +55,7 @@ const Detail = () => {
   }
 
   function handleWhatsapp(){
-    Linking.openURL(`whatsapp://send?phone=${data.point.whatsapp}&text=Tenho interesse sobre o ponto de coleta`)
+    Linking.openURL(`whatsapp://send?phone=55${data.point.whatsapp}&text=Tenho interesse sobre o ponto de coleta`)
   }
 
   function handleComposeMail(){

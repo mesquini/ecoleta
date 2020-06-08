@@ -95,6 +95,9 @@ const CreatePoint: React.FC = () => {
     if(selectedPosition[0] === 0 || selectedPosition[1] === 0)
       return toast.warn('Seleciona uma posição no mapa!')
 
+    if (objRegion.city === '0' || objRegion.uf === '0')
+      return toast.warn('Selecine o Estado e a cidade!');
+
     const {name, email, whatsapp} = formData
     const [latitude, longitude] = selectedPosition
     const items = selectedItems

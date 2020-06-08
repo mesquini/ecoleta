@@ -141,6 +141,7 @@ export const Point = styled.li`
 
   img {
     width: 250px;
+    height: 150px;
   }
 
   h2 {

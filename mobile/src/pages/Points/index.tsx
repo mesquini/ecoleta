@@ -87,9 +87,7 @@ const Points = () => {
     navigate.goBack();
   }
 
-  function handleNavigateDetails(id: number){
-    console.log('onPress', id);
-    
+  function handleNavigateDetails(id: number){    
     navigate.navigate('Detail', { point_id: id});
   }
 
@@ -240,6 +238,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 13,
     lineHeight: 23,
+    textAlign: 'center',
   },
 
   itemsContainer: {

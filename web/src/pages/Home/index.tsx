@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiArrowRight } from 'react-icons/fi';
 
 import { Link } from 'react-router-dom'
 
@@ -25,6 +25,13 @@ const Home: React.FC = () => {
               <FiLogIn />
             </span>
             <strong>Cadastre um ponto de coleta</strong>
+          </Link>
+
+          <Link to="/list-points">
+            <span>
+              <FiArrowRight />
+            </span>
+            <strong>Pesquisar ponto de coleta</strong>
           </Link>
         </main>
       </div>
